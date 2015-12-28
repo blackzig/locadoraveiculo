@@ -21,12 +21,12 @@ public class CadastroFabricanteService implements Serializable{
     private FabricanteDAO fabricanteDAO;
     
     @Transactional
-    public void salvar(Fabricante fabricante) throws NegocioException{
+    public Fabricante salvar(Fabricante fabricante) throws NegocioException{
 
         if(fabricante.getNome()==null || fabricante.getNome().trim().equals("")){
             throw new NegocioException("O nome do fabricante é obrigatório.");
         }
-        this.fabricanteDAO.salvar(fabricante);
+        return fabricante = this.fabricanteDAO.salvar(fabricante);
         
     }
     

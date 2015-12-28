@@ -40,8 +40,8 @@ public class FabricateRecurso {
         Fabricante fabricante = new Gson().fromJson(conteudo, Fabricante.class);
         System.out.println("fabricante " + fabricante.getNome());
         try {
-            cadastroFabricanteService.salvar(fabricante);
-            return Response.ok()
+            fabricante = cadastroFabricanteService.salvar(fabricante);
+            return Response.ok(fabricante)
                     .status(200)
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Headers",

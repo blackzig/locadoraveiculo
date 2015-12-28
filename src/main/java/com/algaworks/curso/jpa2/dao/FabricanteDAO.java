@@ -10,6 +10,7 @@ import java.io.Serializable;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+
 /**
  *
  * @author Michel A. Medeiros
@@ -19,8 +20,9 @@ public class FabricanteDAO implements Serializable{
     @Inject
     private EntityManager em;
     
-    public void salvar(Fabricante fabricante){
-        em.persist(fabricante);
+    public Fabricante salvar(Fabricante fabricante){
+        fabricante = em.merge(fabricante);
+        return fabricante;
     }
     
 }

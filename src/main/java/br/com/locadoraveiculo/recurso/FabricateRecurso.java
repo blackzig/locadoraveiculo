@@ -77,10 +77,28 @@ public class FabricateRecurso {
     @Path("todos/{palavra}")
     @GET
     public List<Fabricante> buscarEspecifico(@PathParam("palavra") String palavra) {
-        System.out.println("palavra "+palavra);
+        System.out.println("palavra " + palavra);
         List<Fabricante> listaFabricantes = new ArrayList<>();
         listaFabricantes = fabricanteDAO.buscarEspecifico(palavra);
         return listaFabricantes;
+    }
+
+    @Path("unico/{id}")
+    @GET
+    public Response buscarEspecificoId(@PathParam("id") Long id) {
+        System.out.println("buscar id " + id);
+
+        fabricante = fabricanteDAO.buscarEspecificoId(id);
+        return Response.ok(fabricante)
+                .status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .build();
     }
 
     @Path("remove/{id}")
@@ -93,7 +111,32 @@ public class FabricateRecurso {
         }
         return Response.ok()
                 .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .build();
+    }
+
+    //Por algum motivo alguns clientes só conseguem excluir por meio do post
+    @Path("removepost/{id}")
+    @POST
+    public Response removePost(@PathParam("id") Long id) {
+        try {
+            fabricanteDAO.excluirFabricante(id);
+        } catch (Exception ex) {
+            System.out.println("erro ao excluir Fabricante " + ex.getMessage());
+        }
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Headers",
+                        "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Credentials", "true")
+                .header("Access-Control-Allow-Methods",
+                        "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
                 .build();
     }
 

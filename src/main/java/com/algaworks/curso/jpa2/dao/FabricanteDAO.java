@@ -32,7 +32,12 @@ public class FabricanteDAO implements Serializable {
 
     public List<Fabricante> buscarEspecifico(String palavra) {
         return em.createQuery("Select f From Fabricante f "
-                + "WHERE f.nome LIKE '%"+palavra+"%' ").getResultList();
+                + "WHERE f.nome LIKE '%" + palavra + "%' ").getResultList();
+    }
+
+    public Fabricante buscarEspecificoId(Long id) {
+        Fabricante f = em.find(Fabricante.class, id);
+        return f;
     }
 
     @Transactional
